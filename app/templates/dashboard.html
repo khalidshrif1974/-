@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card"><h2>لوحة التحكم</h2><p>إجمالي العملاء: <strong>{{ total }}</strong></p></div>
+<div class="card"><h3>آخر العملاء</h3>
+<table><tr><th>الاسم</th><th>الهاتف</th></tr>
+{% for c in recent %}<tr><td>{{ c.name }}</td><td>{{ c.phone }}</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

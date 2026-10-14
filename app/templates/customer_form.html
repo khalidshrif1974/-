@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card"><h2>عميل جديد</h2>
+<form method="post">
+<input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<label>الاسم</label><input name="name" required>
+<label>الهاتف</label><input name="phone">
+<label>البريد</label><input name="email" type="email">
+<label>ملاحظات</label><textarea name="notes"></textarea>
+<button class="primary">حفظ</button>
+</form></div>
+{% endblock %}

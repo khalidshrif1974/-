@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}المنظومة{% endblock %}</title>
+<style>
+body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f4f6f8;color:#222}
+nav{background:#1f3a5f;padding:12px 20px;display:flex;gap:16px;align-items:center}
+nav a,nav button{color:#fff;text-decoration:none;background:none;border:0;font:inherit;cursor:pointer}
+main{max-width:900px;margin:24px auto;padding:0 16px}
+.card{background:#fff;padding:16px;border-radius:8px;margin-bottom:16px;box-shadow:0 1px 3px #0002}
+table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:right}
+input,select,textarea{width:100%;padding:8px;margin:4px 0 12px;box-sizing:border-box}
+button.primary{background:#1f3a5f;color:#fff;border:0;padding:8px 16px;border-radius:4px;cursor:pointer}
+.flash{background:#fde8e8;padding:8px;border-radius:4px;margin-bottom:12px}
+</style>
+</head>
+<body>
+{% if session.user_id %}
+<nav>
+<a href="{{ url_for('dashboard') }}">الرئيسية</a>
+<a href="{{ url_for('customers') }}">العملاء</a>
+{% if session.role == 'admin' %}<a href="{{ url_for('users') }}">المستخدمون</a>{% endif %}
+<form method="post" action="{{ url_for('logout') }}" style="margin-right:auto">
+<input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<button>خروج ({{ session.username }})</button></form>
+</nav>
+{% endif %}
+<main>
+{% for m in get_flashed_messages() %}<div class="flash">{{ m }}</div>{% endfor %}
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>

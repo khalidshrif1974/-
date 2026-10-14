@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card"><h2>العملاء</h2>
+<form method="get"><input name="q" value="{{ q }}" placeholder="بحث بالاسم أو الهاتف"></form>
+<a href="{{ url_for('customer_new') }}">+ عميل جديد</a>
+<table><tr><th>الاسم</th><th>الهاتف</th><th>البريد</th><th></th></tr>
+{% for c in rows %}<tr><td>{{ c.name }}</td><td>{{ c.phone }}</td><td>{{ c.email }}</td>
+<td>{% if session.role == 'admin' %}
+<form method="post" action="{{ url_for('customer_delete', cid=c.id) }}">
+<input type="hidden" name="_csrf" value="{{ csrf_token() }}"><button>حذف</button></form>{% endif %}</td></tr>
+{% endfor %}</table></div>
+{% endblock %}

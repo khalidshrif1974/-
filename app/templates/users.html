@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card"><h2>المستخدمون</h2>
+<table><tr><th>الاسم</th><th>الصلاحية</th></tr>
+{% for u in rows %}<tr><td>{{ u.username }}</td><td>{{ u.role }}</td></tr>{% endfor %}</table></div>
+<div class="card"><h3>إضافة مستخدم</h3>
+<form method="post">
+<input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<label>اسم المستخدم</label><input name="username" required>
+<label>كلمة المرور</label><input name="password" type="password" required minlength="8">
+<label>الصلاحية</label><select name="role"><option value="staff">موظف</option><option value="admin">مدير</option></select>
+<button class="primary">إضافة</button>
+</form></div>
+{% endblock %}
